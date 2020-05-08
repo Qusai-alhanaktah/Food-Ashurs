@@ -1,6 +1,6 @@
 /* eslint-disable no-undefined */
 import cookie from 'react-cookies';
-import jwt from 'jsonwebtoken';
+// import jwt from 'jsonwebtoken';
 
 
 export const LOGIN = 'LOGIN';
@@ -52,13 +52,13 @@ const generateToken = user => {
     userEamil: user.email,
     capabilities: user.role,
   };
-  let token = jwt.sign(userData, 'ashurFood');
+  // let token = jwt.sign(userData, 'ashurFood');
   return setLoginState(true, token, userData);
 };
 
 const validateToken = token =>{
   try {
-    let user = jwt.verify(token, 'ashurFood');
+    // let user = jwt.verify(token, 'ashurFood');
     return setLoginState(true, token, user);
   } catch {
     console.error('token invalid');
