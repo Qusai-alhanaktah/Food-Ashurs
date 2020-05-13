@@ -1,15 +1,17 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import {Route} from 'react-router-dom';
-import Header from './component/header/header.js';
-import Auth from './component/auth/auth.js';
-import { Provider } from 'react-redux';
-import store from './store/';
+import Header from './component/header.js';
+import Footer from './component/footer.js';
+import Donor from './component/donor.js';
+import Recipient from './component/recipient.js';
 
 export default function App() {
   return (
-    <View style={styles.container}>
-        <Header />
+    <View >
+      <Header />
+      <Donor />
+      <Text>-----------------------------</Text>
+      <Recipient />
     </View>
   );
 }

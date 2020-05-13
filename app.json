@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "Food-Ashurs",
-    "slug": "Food-Ashurs",
+    "name": "food-app",
+    "slug": "food-app",
     "platforms": [
       "ios",
       "android",
