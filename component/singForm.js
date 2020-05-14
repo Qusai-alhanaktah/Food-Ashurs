@@ -1,15 +1,15 @@
 import React, {useState} from 'react'
 import { StyleSheet, Text, View, TextInput, Button, Modal, Image } from 'react-native';
 import RadioForm, {RadioButton, RadioButtonInput, RadioButtonLabel} from 'react-native-simple-radio-button';
-import { logInContext } from './contextAuth.js';
+import { connect } from 'react-redux';
+import { logIn, logUp } from './action.js';
 
 const role = [
   {label: 'Donor', value: 'donor'},
   {label: 'Recipient', value: 'recipient'},
 ]
 
-export default function SingForm(props) {
-    const context = useContext(logInContext);
+function SingForm(props) {
 
     const [newUser, setNewUser] = useState({});
     const [user, setUser] = useState({});
@@ -19,15 +19,13 @@ export default function SingForm(props) {
 
     const signUp = e => {
         alert('hello'+ newUser.username + newUser.password+ newUser.email+ newUser.role);
-        console.warn(context)
-        context.logUp( newUser.username, newUser.password, newUser.email, newUser.role);
         setNewUser({});
+        props.logUp( newUser.username , newUser.password, newUser.email, newUser.role)
     }
     const signIn = e => {
         alert('hello'+ user.username + user.password);
-        console.warn(context)
-        context.logIn( newUser.username, newUser.password);
         setUser({});
+        props.logIn( newUser.username , newUser.password)
     }
 
     return (
@@ -64,6 +62,16 @@ export default function SingForm(props) {
         </View>
     )
 }
+const mapStateToProps = state => ({
+    loggedIn: state.authReducer.loggedIn,
+    loading: state.authReducer.loading,
+    user: state.authReducer.user,
+  });
+  const mapDispatchToProps = { logIn, logUp };
+  
+  export default connect(mapStateToProps, mapDispatchToProps)(SingForm);
+
+  
 const styles = StyleSheet.create({
     container: {textAlign: 'center', marginTop:0,backgroundColor:'#696e78'},
     title: {textAlign: 'center', fontSize: 30, marginVertical: 30},

@@ -7,24 +7,19 @@ import Recipient from './component/recipient.js';
 import logInContext from './component/contextAuth.js';
 import SettingsProvider from './component/contextAuth.js';
 import Auth from './component/auth.js';
+import { Provider } from 'react-redux';
+import store from './component/store.js';
+import SingForm from './component/singForm.js';
 
 export default function App() {
   return (
     <View >
-        <logInContext>
-      <Header />
-      <Auth capability='recipient'>
-            <SettingsProvider>
-              <Recipient />
-            </SettingsProvider>
-          </Auth>
-          <Auth capability='donor'>
-            <SettingsProvider>
-              <Donor />
-            </SettingsProvider>
-          </Auth>
-      </logInContext>
-       </View>
+          <Provider store={store}>
+              <Header />
+              <SingForm />
+              <Auth />
+          </Provider>
+    </View>
   );
 }
 
