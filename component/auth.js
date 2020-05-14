@@ -48,6 +48,6 @@ const mapStateToProps = state => ({
   loading: state.authReducer.loading,
   user: state.authReducer.user,
 });
-const mapDispatchToProps = { keepIn };
+const mapDispatchToProps = {  };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Auth);

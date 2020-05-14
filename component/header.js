@@ -7,7 +7,7 @@ export default function Header  (){
     return(
         <View style={styles.container}>
             <Text style={styles.title}>Food Ashur's</Text>
-            <SingForm />
+            {/* <SingForm /> */}
         </View>
     );
 }

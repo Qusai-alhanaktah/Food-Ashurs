@@ -21,11 +21,13 @@ function SingForm(props) {
         alert('hello'+ newUser.username + newUser.password+ newUser.email+ newUser.role);
         setNewUser({});
         props.logUp( newUser.username , newUser.password, newUser.email, newUser.role)
+        console.log(props);
     }
     const signIn = e => {
         alert('hello'+ user.username + user.password);
         setUser({});
         props.logIn( newUser.username , newUser.password)
+        console.log(props);   
     }
 
     return (
