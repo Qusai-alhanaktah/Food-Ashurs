@@ -1,12 +1,16 @@
 import React, {useState} from 'react'
 import { StyleSheet, Text, View, TextInput, Button, Modal, Image } from 'react-native';
 import RadioForm, {RadioButton, RadioButtonInput, RadioButtonLabel} from 'react-native-simple-radio-button';
+import { logInContext } from './contextAuth.js';
+
 const role = [
   {label: 'Donor', value: 'donor'},
   {label: 'Recipient', value: 'recipient'},
 ]
 
-export default function SingForm() {
+export default function SingForm(props) {
+    const context = useContext(logInContext);
+
     const [newUser, setNewUser] = useState({});
     const [user, setUser] = useState({});
     const [showSingUpForm, setShowSingUpForm] = useState(false);
@@ -14,13 +18,15 @@ export default function SingForm() {
 
 
     const signUp = e => {
-        console.log(user);
         alert('hello'+ newUser.username + newUser.password+ newUser.email+ newUser.role);
+        console.warn(context)
+        context.logUp( newUser.username, newUser.password, newUser.email, newUser.role);
         setNewUser({});
     }
     const signIn = e => {
-        console.log(user);
         alert('hello'+ user.username + user.password);
+        console.warn(context)
+        context.logIn( newUser.username, newUser.password);
         setUser({});
     }
 
@@ -59,7 +65,7 @@ export default function SingForm() {
     )
 }
 const styles = StyleSheet.create({
-    container: {textAlign: 'center', marginTop:0, },
+    container: {textAlign: 'center', marginTop:0,backgroundColor:'#696e78'},
     title: {textAlign: 'center', fontSize: 30, marginVertical: 30},
     input:{ fontSize: 15},
     button: {flex:1 ,flexDirection: 'row', justifyContent: 'space-between', width: 50},
