@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, TextInput, Button, Modal, Image } from 'react-n
 import RadioForm, {RadioButton, RadioButtonInput, RadioButtonLabel} from 'react-native-simple-radio-button';
 import { connect } from 'react-redux';
 import { logIn, logUp } from './action.js';
+import { AsyncStorage } from 'react-native';
 
 const role = [
   {label: 'Donor', value: 'donor'},
@@ -17,17 +18,23 @@ function SingForm(props) {
     const [showSingInForm, setShowSingInForm] = useState(false);
 
 
-    const signUp = e => {
-        alert('hello'+ newUser.username + newUser.password+ newUser.email+ newUser.role);
+    const signUp =  () => {
+        fetch('https://food--ashurs.herokuapp.com/signup', {
+            method: 'post',
+            mode: 'cors',
+            cache: 'no-cache',
+            headers: { 'Content-Type': 'application/json' },
+            body: newUser ? JSON.stringify(newUser) : undefined,
+        })
+        .then(response =>  response.text())
+        .then(data => AsyncStorage.setItem('authToken', data))
+        .then( ()=> console.log('loggedIn'))
         setNewUser({});
-        props.logUp( newUser.username , newUser.password, newUser.email, newUser.role)
-        console.log(props);
     }
     const signIn = e => {
         alert('hello'+ user.username + user.password);
         setUser({});
         props.logIn( newUser.username , newUser.password)
-        console.log(props);   
     }
 
     return (
