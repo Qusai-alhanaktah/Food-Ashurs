@@ -23,8 +23,8 @@ export default function SignUp(props) {
             body: newUser ? JSON.stringify(newUser) : undefined,
         })
         .then(response =>  response.text())
-        .then(data => AsyncStorage.setItem('authToken', data))
-        .then( ()=> console.warn('loggedIn'))
+        .then(data => AsyncStorage.setItem('authToken', data));
+        AsyncStorage.setItem('user', newUser)
         setNewUser({});
     }
 
@@ -46,7 +46,7 @@ export default function SignUp(props) {
                 buttonOuterSize={25}
                 selectorButtonColor={'green'}
               />
-            <Button style={styles.button} onPress={() => signUp()}  title="Sign Up"  color="black" />
+            <Button style={styles.button} onPress={() => {signUp(); }}  title="Sign Up"  color="black" />
             </TouchableOpacity>
             <Text>I have an account</Text>
             <Button onPress={()=> props.navigation.navigate('Home')} title="Log In" color='gray'/>
