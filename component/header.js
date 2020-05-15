@@ -1,13 +1,12 @@
 import React, {useState} from 'react';
 import { StyleSheet, Text, View, TextInput, Button, Modal, Image } from 'react-native';
-import SingForm from './singForm.js';
+// import SingForm from './signUp.js';
 
 export default function Header  (){
 
     return(
         <View style={styles.container}>
             <Text style={styles.title}>Food Ashur's</Text>
-            {/* <SingForm /> */}
         </View>
     );
 }

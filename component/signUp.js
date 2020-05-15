@@ -1,8 +1,8 @@
 import React, {useState} from 'react'
-import { StyleSheet, Text, View, TextInput, Button, Modal, Image } from 'react-native';
+import { StyleSheet, Text, View, TextInput, Button, Modal, Image, TouchableOpacity } from 'react-native';
 import RadioForm, {RadioButton, RadioButtonInput, RadioButtonLabel} from 'react-native-simple-radio-button';
-import { connect } from 'react-redux';
-import { logIn, logUp } from './action.js';
+// import { connect } from 'react-redux';
+// import { logUp } from './action.js';
 import { AsyncStorage } from 'react-native';
 
 const role = [
@@ -10,13 +10,9 @@ const role = [
   {label: 'Recipient', value: 'recipient'},
 ]
 
-function SingForm(props) {
+export default function SignUp(props) {
 
     const [newUser, setNewUser] = useState({});
-    const [user, setUser] = useState({});
-    const [showSingUpForm, setShowSingUpForm] = useState(false);
-    const [showSingInForm, setShowSingInForm] = useState(false);
-
 
     const signUp =  () => {
         fetch('https://food--ashurs.herokuapp.com/signup', {
@@ -28,21 +24,13 @@ function SingForm(props) {
         })
         .then(response =>  response.text())
         .then(data => AsyncStorage.setItem('authToken', data))
-        .then( ()=> console.log('loggedIn'))
+        .then( ()=> console.warn('loggedIn'))
         setNewUser({});
-    }
-    const signIn = e => {
-        alert('hello'+ user.username + user.password);
-        setUser({});
-        props.logIn( newUser.username , newUser.password)
     }
 
     return (
         <View style={styles.container}>
-            <Button style={styles.button} onPress={()=> setShowSingUpForm(true)} title='Create an Acount' color='gray'/>
-            <Button style={styles.button} onPress={()=> setShowSingInForm(true)} title='Log In' color='gray'/>
-        <Modal visible={showSingUpForm}>
-        <Button onPress={()=> setShowSingUpForm(false)} title='x' color='gray'/>
+            <TouchableOpacity>
             <Text>User Name: </Text>
             <TextInput  placeholder='Type Your UserName'  style={styles.input}  onChangeText={value => setNewUser({...newUser, 'username': value})}/>
             <Text>Password: </Text>
@@ -58,27 +46,22 @@ function SingForm(props) {
                 buttonOuterSize={25}
                 selectorButtonColor={'green'}
               />
-            <Button style={styles.button} onPress={() => {signUp(); setShowSingUpForm(false)}}  title="Sign Up"  color="black" />
-        </Modal>
-        <Modal visible={showSingInForm}>
-        <Button onPress={()=> setShowSingInForm(false)} title='x' color='gray'/>
-            <Text>User Name: </Text>
-            <TextInput  placeholder='Type Your UserName'  style={styles.input} onChangeText={value => setUser({...user, 'username': value})}/>
-            <Text>Password: </Text>
-            <TextInput  placeholder='Type Your Password'  style={styles.input}  onChangeText={value => setUser({...user, 'password': value})}/>
-            <Button style={styles.button} onPress={() => {signIn(); setShowSingInForm(false)}}  title="Sign In"  color="black" />
-        </Modal>
+            <Button style={styles.button} onPress={() => signUp()}  title="Sign Up"  color="black" />
+            </TouchableOpacity>
+            <Text>I have an account</Text>
+            <Button onPress={()=> props.navigation.navigate('Home')} title="Log In" color='gray'/>
+
         </View>
     )
 }
-const mapStateToProps = state => ({
-    loggedIn: state.authReducer.loggedIn,
-    loading: state.authReducer.loading,
-    user: state.authReducer.user,
-  });
-  const mapDispatchToProps = { logIn, logUp };
+// const mapStateToProps = state => ({
+//     loggedIn: state.authReducer.loggedIn,
+//     loading: state.authReducer.loading,
+//     user: state.authReducer.user,
+//   });
+//   const mapDispatchToProps = { logUp };
   
-  export default connect(mapStateToProps, mapDispatchToProps)(SingForm);
+//   export default connect(mapStateToProps, mapDispatchToProps)(SignUp);
 
   
 const styles = StyleSheet.create({

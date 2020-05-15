@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, StatusBar } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import Header from './component/header.js';
 import Footer from './component/footer.js';
 import Donor from './component/donor.js';
@@ -9,17 +9,30 @@ import SettingsProvider from './component/contextAuth.js';
 import Auth from './component/auth.js';
 import { Provider } from 'react-redux';
 import store from './component/store.js';
-import SingForm from './component/singForm.js';
+import SignUp from './component/signUp.js';
+import SignIn from './component/signIn.js';
+
+import { NavigationContainer } from '@react-navigation/native';
+import { createDrawerNavigator } from '@react-navigation/drawer';
+import { createStackNavigator, HeaderBackground } from '@react-navigation/stack';
+
+const Drawer = createDrawerNavigator();
+const Stack = createStackNavigator();
 
 export default function App() {
+//   const logNavigate = () => 
+//   <Stack.Navigator>
+//     <Stack.Screen name="Home" component={SignIn} />
+//     <Stack.Screen name='SignIn' component={SignIn} options={{title: 'Sign In'}}/>
+//     <Stack.Screen name='SignUp' component={SignUp} options={{title: 'Sign Up'}}/>
+// </Stack.Navigator>
   return (
-    <View >
-          <Provider store={store}>
-              <Header />
-              <SingForm />
-              <Auth />
-          </Provider>
-    </View>
+    <NavigationContainer >
+          <Stack.Navigator>
+              <Stack.Screen name='Home' component={SignIn} options={{title: 'Sign In', headerStyle:{backgroundColor:'gray'}, headerTintColor:'white'}}/>
+              <Stack.Screen name='SignUp' component={SignUp} options={{title: 'Sign Up'}}/>
+          </Stack.Navigator>
+    </NavigationContainer>
   );
 }
 
