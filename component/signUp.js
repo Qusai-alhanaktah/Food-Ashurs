@@ -23,8 +23,15 @@ export default function SignUp(props) {
             body: newUser ? JSON.stringify(newUser) : undefined,
         })
         .then(response =>  response.text())
-        .then(data => AsyncStorage.setItem('authToken', data));
-        AsyncStorage.setItem('user', newUser)
+        .then(token =>{
+            let storage = [['user', JSON.stringify(newUser)], ['access_token', token]];
+                AsyncStorage.multiSet(storage, (error)=> {
+                    alert("finished");
+                    if(error) alert("error!");
+                    else alert("Welcome "+ newUser.username +" !");
+                });  
+            });
+        props.navigation.navigate('Home');
         setNewUser({});
     }
 
