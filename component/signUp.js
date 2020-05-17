@@ -32,7 +32,7 @@ export default function SignUp(props) {
                 });  
         });
         setNewUser({});
-        props.navigation.navigate('App')
+        // props.navigation.navigate('App')
     }else alert('You have to fill the form')
   }
 

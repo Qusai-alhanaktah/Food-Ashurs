@@ -34,40 +34,42 @@ useEffect(()=>{
   });
     if(token){
       if(user.role === 'donor') setOkToRenderDonor(true);
-      else if(user.role === 'recipient') setOkToRenderRecipient(true); 
-     }else alert('not authorized to do that');
+      else if(user.role === 'recipient') setOkToRenderRecipient(true);
+      else alert('not authorized to do that');
+     }
 }, []);
 
-    const homeStackScreen  = () => (
+    const homeStackScreen  = () =>{ return(
       <Stack.Navigator>
          <Stack.Screen name='SignIn' component={SignIn}  options={{headerShown: false,}}/>
          <Stack.Screen name='SignUp' component={SignUp}  options={{headerShown: false,}}/>
       </Stack.Navigator>
-    )
+    )}
 
-    const accessScreen = () => (
-      okToRenderDonor ? (
+    const accessScreen = () =>{return (
+      user.role === 'donor' ? (
         <Drawer.Navigator>
            <Drawer.Screen name='Donor' component={Donor} options={{title: 'Home'}} />
            <Drawer.Screen name='Profile' component={Profile} initialParams={user} />
            <Drawer.Screen name='AboutUs' component={AboutUs}  />
         </Drawer.Navigator>
-      ): okToRenderRecipient ? (
+      ): user.role === 'recipient' ? (
         <Drawer.Navigator>
           <Drawer.Screen name='Recipient' component={Recipient} options={{title: 'Home'}} />
           <Drawer.Screen name='Profile' component={Profile}  initialParams={user}/>
           <Drawer.Screen name='AboutUs' component={AboutUs}  />
         </Drawer.Navigator>
       ) : ( 
-         <Stack.Screen name='Home' children={homeStackScreen} />
+          homeStackScreen()
       )
-    )  
+    )} 
     return (
       <NavigationContainer>
-          <Stack.Navigator>
-            <Stack.Screen name='Home' children={homeStackScreen} />
-            <Stack.Screen name='App' children={accessScreen} options={{headerShown: false,}}/>
-          </Stack.Navigator>
+          {token ? (
+            homeStackScreen()
+          ):(
+            accessScreen()
+          )}
       </NavigationContainer>
     );
 }

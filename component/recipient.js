@@ -70,7 +70,7 @@ export default function Recipient(props) {
     return (
      <ScrollView> 
                <Button onPress={()=>{ AsyncStorage.clear();
-                  props.navigation.navigate('Home');
+                  // props.navigation.navigate('Home');
           }} title='Log Out' color='red'/>
         {showDonorsBtn  && (
          <Button onPress={()=>  getDonors() } title="See Donors" color='green'/> )}
