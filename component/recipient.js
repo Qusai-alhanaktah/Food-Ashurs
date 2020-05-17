@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { StyleSheet, Text, View, TextInput, Button, Modal, Image, ActivityIndicator, FlatList, ScrollView, TouchableOpacity } from 'react-native';
 import RadioForm, {RadioButton, RadioButtonInput, RadioButtonLabel} from 'react-native-simple-radio-button';
+import { AsyncStorage } from 'react-native';
+
 const foodType = [
   {label: 'Eastern Food', value: 'eastern food'},
   {label: 'Fast Food', value: 'fast food'},
@@ -67,6 +69,9 @@ export default function Recipient(props) {
     // )}
     return (
      <ScrollView> 
+               <Button onPress={()=>{ AsyncStorage.clear();
+                  props.navigation.navigate('Home');
+          }} title='Log Out' color='red'/>
         {showDonorsBtn  && (
          <Button onPress={()=>  getDonors() } title="See Donors" color='green'/> )}
         <TouchableOpacity style={styles.container}>
@@ -84,6 +89,7 @@ export default function Recipient(props) {
 
         <Button onPress={()=> setShowForm(true)} title="Ask For Food" color='green'/>
         <Modal visible={showForm}>
+        <Button onPress={()=> setShowForm(false)} title="X" color='red'/>
         <Text>Your Name: </Text>
             <TextInput  placeholder='Type Your Name'  style={styles.input}  onChangeText={(value)=>setNewRecipient({...newRecipient, 'name': value})}/>
             <Text>Food Type: </Text>

@@ -13,8 +13,9 @@ const role = [
 export default function SignUp(props) {
 
     const [newUser, setNewUser] = useState({});
-
-    const signUp =  () => {
+    
+  const signUp =  () => {
+        if(newUser.username){
         fetch('https://food--ashurs.herokuapp.com/signup', {
             method: 'post',
             mode: 'cors',
@@ -26,14 +27,14 @@ export default function SignUp(props) {
         .then(token =>{
             let storage = [['user', JSON.stringify(newUser)], ['access_token', token]];
                 AsyncStorage.multiSet(storage, (error)=> {
-                    alert("finished");
                     if(error) alert("error!");
                     else alert("Welcome "+ newUser.username +" !");
                 });  
-            });
-        props.navigation.navigate('Home');
+        });
         setNewUser({});
-    }
+        props.navigation.navigate('App')
+    }else alert('You have to fill the form')
+  }
 
     return (
         <View style={styles.container}>
@@ -56,20 +57,11 @@ export default function SignUp(props) {
             <Button style={styles.button} onPress={() => {signUp(); }}  title="Sign Up"  color="black" />
             </TouchableOpacity>
             <Text>I have an account</Text>
-            <Button onPress={()=> props.navigation.navigate('Home')} title="Log In" color='gray'/>
+            <Button onPress={()=> props.navigation.navigate('SignIn')} title="Log In" color='gray'/>
 
         </View>
     )
 }
-// const mapStateToProps = state => ({
-//     loggedIn: state.authReducer.loggedIn,
-//     loading: state.authReducer.loading,
-//     user: state.authReducer.user,
-//   });
-//   const mapDispatchToProps = { logUp };
-  
-//   export default connect(mapStateToProps, mapDispatchToProps)(SignUp);
-
   
 const styles = StyleSheet.create({
     container: {textAlign: 'center', marginTop:0,backgroundColor:'#696e78'},

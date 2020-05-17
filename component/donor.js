@@ -62,11 +62,7 @@ export default function Donor(props) {
         setShowRecipients(true)
       });
     };
-    // {loading && (
-    //   <View >
-    //     <ActivityIndicator />
-    //   </View>
-    // )}
+
     return (
      <ScrollView> 
           <Button onPress={()=>{ AsyncStorage.clear();
@@ -89,6 +85,7 @@ export default function Donor(props) {
 
         <Button onPress={()=> setShowForm(true)} title="Let's Donate" color='green'/>
         <Modal visible={showForm}>
+        <Button onPress={()=> setShowForm(false)} title="X" color='red'/>
         <Text>Your Name: </Text>
             <TextInput  placeholder='Type Your Name'  style={styles.input}   onChangeText={(value)=>setNewDonor({...newDonor, 'name': value})}/>
             <Text>Food Type: </Text>

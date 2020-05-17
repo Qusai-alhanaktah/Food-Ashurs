@@ -4,7 +4,10 @@ import { StyleSheet, Text, View, TextInput, Button, Modal, Image, TouchableOpaci
 export default function Profile(props) {
     return (
         <View style={styles.container}>
-          <Text>Hello {props.user.name}</Text>  
+          <Text>Hello {props.route.params.username}</Text>
+          <Text>You enter as: {props.route.params.role}</Text>  
+          <Text>Your Email is: {props.route.params.email}</Text>  
+
         </View>
     )
 }
