@@ -9,8 +9,9 @@ const role = [
   {label: 'Donor', value: 'donor'},
   {label: 'Recipient', value: 'recipient'},
 ]
-
-export default function SignUp(props) {
+// export const UserContext = React.createContext()
+// const SignUp = UserContext.Provider;
+export default function SignUp (props) {
 
     const [newUser, setNewUser] = useState({});
     

@@ -8,7 +8,7 @@ import { StyleSheet, Text, View } from 'react-native';
 // import SettingsProvider from './component/contextAuth.js';
 // import { Provider } from 'react-redux';
 // import store from './component/store.js';
-// import SignUp from './component/signUp.js';
+import UserProvider from './component/signUp.js';
 // import SignIn from './component/signIn.js';
 // import { AsyncStorage } from 'react-native';
 // import AboutUs from './component/about-us.js';

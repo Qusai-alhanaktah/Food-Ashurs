@@ -9,6 +9,8 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { createStackNavigator } from '@react-navigation/stack';
 import { AsyncStorage } from 'react-native';
+import UserContext from './signUp.js';
+
 
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
@@ -24,8 +26,10 @@ export default function Auth (props){
   const [okToRenderDonor, setOkToRenderDonor] = useState(false);
   const [okToRenderRecipient, setOkToRenderRecipient] = useState(false);
 
-
-useEffect(()=>{
+  
+  
+  useEffect(()=>{
+    console.log('UserContext',UserContext);
   AsyncStorage.multiGet(['access_token', 'user']).then((userSession) => {
     setToken(userSession[0][1]);
     setUser(JSON.parse(userSession[1][1]));
@@ -46,7 +50,7 @@ useEffect(()=>{
       </Stack.Navigator>
     )}
 
-    const accessScreen = () =>{return (
+    const accessScreen = () =>{
       user.role === 'donor' ? (
         <Drawer.Navigator>
            <Drawer.Screen name='Donor' component={Donor} options={{title: 'Home'}} />
@@ -62,7 +66,7 @@ useEffect(()=>{
       ) : ( 
           homeStackScreen()
       )
-    )} 
+    } 
     return (
       <NavigationContainer>
           {token ? (
