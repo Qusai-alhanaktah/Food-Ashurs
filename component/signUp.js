@@ -1,8 +1,8 @@
 import React, {useState} from 'react'
 import { StyleSheet, Text, View, TextInput, Button, Modal, Image, TouchableOpacity } from 'react-native';
 import RadioForm, {RadioButton, RadioButtonInput, RadioButtonLabel} from 'react-native-simple-radio-button';
-// import { connect } from 'react-redux';
-// import { logUp } from './action.js';
+import { connect } from 'react-redux';
+import { logUp } from './action.js';
 import { AsyncStorage } from 'react-native';
 
 const role = [
@@ -11,27 +11,28 @@ const role = [
 ]
 // export const UserContext = React.createContext()
 // const SignUp = UserContext.Provider;
-export default function SignUp (props) {
+function SignUp (props) {
 
     const [newUser, setNewUser] = useState({});
     
   const signUp =  () => {
         if(newUser.username){
-        fetch('https://food--ashurs.herokuapp.com/signup', {
-            method: 'post',
-            mode: 'cors',
-            cache: 'no-cache',
-            headers: { 'Content-Type': 'application/json' },
-            body: newUser ? JSON.stringify(newUser) : undefined,
-        })
-        .then(response =>  response.text())
-        .then(token =>{
-            let storage = [['user', JSON.stringify(newUser)], ['access_token', token]];
-                AsyncStorage.multiSet(storage, (error)=> {
-                    if(error) alert("error!");
-                    else alert("Welcome "+ newUser.username +" !");
-                });  
-        });
+        // fetch('https://food--ashurs.herokuapp.com/signup', {
+        //     method: 'post',
+        //     mode: 'cors',
+        //     cache: 'no-cache',
+        //     headers: { 'Content-Type': 'application/json' },
+        //     body: newUser ? JSON.stringify(newUser) : undefined,
+        // })
+        // .then(response =>  response.text())
+        // .then(token =>{
+        //     let storage = [['user', JSON.stringify(newUser)], ['access_token', token]];
+        //         AsyncStorage.multiSet(storage, (error)=> {
+        //             if(error) alert("error!");
+        //             else alert("Welcome "+ newUser.username +" !");
+        //         });  
+        // });
+        props.logUp(newUser);
         setNewUser({});
         // props.navigation.navigate('App')
     }else alert('You have to fill the form')
@@ -63,6 +64,14 @@ export default function SignUp (props) {
         </View>
     )
 }
+const mapStateToProps = state => ({
+    user: state.authReducer.user,
+    loggedIn: state.authReducer.loggedIn,
+    loading: state.authReducer.loading,
+  });
+const mapDispatchToProps = { logUp };
+  
+export default connect(mapStateToProps, mapDispatchToProps)(SignUp);
   
 const styles = StyleSheet.create({
     container: {textAlign: 'center', marginTop:0,backgroundColor:'#696e78'},

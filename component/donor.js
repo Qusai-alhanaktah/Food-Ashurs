@@ -65,9 +65,14 @@ export default function Donor(props) {
 
     return (
      <ScrollView> 
-          <Button onPress={()=>{ AsyncStorage.clear();
+
+          <Button onPress={()=>{
+                  // AsyncStorage.clear();
                   // props.navigation.navigate('Home');
           }} title='Log Out' color='red'/>
+                    <Button onPress={()=>{ 
+            console.log(props)
+          }} title='navigate' color='black'/>
         {showRecipientsBtn  && (
          <Button onPress={()=>  getRecipients() } title="See Recipients" color='green'/> )}
         <TouchableOpacity style={styles.container}>

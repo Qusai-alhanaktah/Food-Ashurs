@@ -10,7 +10,8 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import { createStackNavigator } from '@react-navigation/stack';
 import { AsyncStorage } from 'react-native';
 import UserContext from './signUp.js';
-
+import { Provider } from 'react-redux';
+import store from './store.js';
 
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
@@ -29,28 +30,25 @@ export default function Auth (props){
   
   
   useEffect(()=>{
-    console.log('UserContext',UserContext);
-  AsyncStorage.multiGet(['access_token', 'user']).then((userSession) => {
+    AsyncStorage.multiGet(['access_token', 'user']).then((userSession) => {
     setToken(userSession[0][1]);
     setUser(JSON.parse(userSession[1][1]));
-    console.log(user);
-    console.log(token);
-  });
-    if(token){
-      if(user.role === 'donor') setOkToRenderDonor(true);
-      else if(user.role === 'recipient') setOkToRenderRecipient(true);
+    if(userSession[0][1]){
+      if(JSON.parse(userSession[1][1]).role === 'donor') setOkToRenderDonor(true);
+      else if(JSON.parse(userSession[1][1]).role === 'recipient') setOkToRenderRecipient(true);
       else alert('not authorized to do that');
      }
+  });
 }, []);
 
     const homeStackScreen  = () =>{ return(
-      <Stack.Navigator>
+      <Stack.Navigator initialRouteName='SignUp'>
          <Stack.Screen name='SignIn' component={SignIn}  options={{headerShown: false,}}/>
          <Stack.Screen name='SignUp' component={SignUp}  options={{headerShown: false,}}/>
       </Stack.Navigator>
     )}
 
-    const accessScreen = () =>{
+    const accessScreen = () =>{ return(
       user.role === 'donor' ? (
         <Drawer.Navigator>
            <Drawer.Screen name='Donor' component={Donor} options={{title: 'Home'}} />
@@ -66,14 +64,17 @@ export default function Auth (props){
       ) : ( 
           homeStackScreen()
       )
+    )
     } 
     return (
       <NavigationContainer>
-          {token ? (
+        <Provider store={store}>
+          {!token ? (
             homeStackScreen()
           ):(
             accessScreen()
           )}
+        </Provider>
       </NavigationContainer>
     );
 }
