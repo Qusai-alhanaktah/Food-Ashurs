@@ -72,12 +72,8 @@ function Recipient(props) {
     return (
      <ScrollView> 
                <Button onPress={()=>{
-                  // AsyncStorage.clear();
-                  // props.navigation.navigate('Home');
+                  props.logOut()
           }} title='Log Out' color='red'/>
-                    <Button onPress={()=>{ 
-            console.log(props)
-          }} title='navigate' color='black'/>
         {showDonorsBtn  && (
          <Button onPress={()=>  getDonors() } title="See Donors" color='green'/> )}
         <TouchableOpacity style={styles.container}>

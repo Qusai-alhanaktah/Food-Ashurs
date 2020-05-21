@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react'
 import { StyleSheet, Text, View, TextInput, Button, Modal, Image, ActivityIndicator, FlatList, ScrollView, TouchableOpacity } from 'react-native';
 import RadioForm, {RadioButton, RadioButtonInput, RadioButtonLabel} from 'react-native-simple-radio-button';
 import { AsyncStorage } from 'react-native';
+import { connect } from 'react-redux';
+import { logUp, logOut } from './action.js';
 
 const foodType = [
   {label: 'Eastern Food', value: 'eastern food'},
@@ -9,7 +11,7 @@ const foodType = [
   {label: 'Deserts', value: 'desserts'},
 ]
 
-export default function Donor(props) {
+function Donor(props) {
     const [loading, setLoading] = useState(true);
     const [recipients, setRecipients] = useState([]);
     const [showForm, setShowForm] = useState(false);
@@ -67,12 +69,8 @@ export default function Donor(props) {
      <ScrollView> 
 
           <Button onPress={()=>{
-                  // AsyncStorage.clear();
-                  // props.navigation.navigate('Home');
+                  props.logOut();
           }} title='Log Out' color='red'/>
-                    <Button onPress={()=>{ 
-            console.log(props)
-          }} title='navigate' color='black'/>
         {showRecipientsBtn  && (
          <Button onPress={()=>  getRecipients() } title="See Recipients" color='green'/> )}
         <TouchableOpacity style={styles.container}>
@@ -144,6 +142,14 @@ export default function Donor(props) {
     </ScrollView>
     )
 }
+const mapStateToProps = state => ({
+  user: state.authReducer.user,
+  loggedIn: state.authReducer.loggedIn,
+  loading: state.authReducer.loading,
+});
+const mapDispatchToProps = { logUp, logOut };
+
+export default connect(mapStateToProps, mapDispatchToProps)(Donor);
 
 const styles = StyleSheet.create({
     container: {

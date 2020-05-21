@@ -9,19 +9,17 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { createStackNavigator } from '@react-navigation/stack';
 import { AsyncStorage } from 'react-native';
-import UserContext from './signUp.js';
-import { Provider } from 'react-redux';
-import store from './store.js';
+import { connect } from 'react-redux';
+import { logUp, logOut } from './action.js';
 
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
-const HomeStack = createStackNavigator();
 
 const If = props => {
   return props.condition ? props.children : null;
 };
 
-export default function Auth (props){
+function Auth (props){
   const [token, setToken] = useState(null);
   const [user, setUser] = useState({});
   const [okToRenderDonor, setOkToRenderDonor] = useState(false);
@@ -39,6 +37,9 @@ export default function Auth (props){
       else alert('not authorized to do that');
      }
   });
+  console.log(token);
+
+  console.log(props);
 }, []);
 
     const homeStackScreen  = () =>{ return(
@@ -49,13 +50,13 @@ export default function Auth (props){
     )}
 
     const accessScreen = () =>{ return(
-      user.role === 'donor' ? (
+      props.user.role === 'donor' || user.role === 'donor' ? (
         <Drawer.Navigator>
            <Drawer.Screen name='Donor' component={Donor} options={{title: 'Home'}} />
            <Drawer.Screen name='Profile' component={Profile} initialParams={user} />
            <Drawer.Screen name='AboutUs' component={AboutUs}  />
         </Drawer.Navigator>
-      ): user.role === 'recipient' ? (
+      ): props.user.role === 'recipient' || user.role === 'recipient' ? (
         <Drawer.Navigator>
           <Drawer.Screen name='Recipient' component={Recipient} options={{title: 'Home'}} />
           <Drawer.Screen name='Profile' component={Profile}  initialParams={user}/>
@@ -68,13 +69,19 @@ export default function Auth (props){
     } 
     return (
       <NavigationContainer>
-        <Provider store={store}>
-          {!token ? (
+          {!props.loggedIn || !token ? (
             homeStackScreen()
           ):(
             accessScreen()
           )}
-        </Provider>
       </NavigationContainer>
     );
 }
+const mapStateToProps = state => ({
+  user: state.authReducer.user,
+  loggedIn: state.authReducer.loggedIn,
+  loading: state.authReducer.loading,
+});
+const mapDispatchToProps = { logUp, logOut };
+
+export default connect(mapStateToProps, mapDispatchToProps)(Auth);

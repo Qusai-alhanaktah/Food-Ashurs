@@ -4,11 +4,8 @@ import { StyleSheet, Text, View } from 'react-native';
 // import Footer from './component/footer.js';
 // import Donor from './component/donor.js';
 // import Recipient from './component/recipient.js';
-// import logInContext from './component/contextAuth.js';
-// import SettingsProvider from './component/contextAuth.js';
-// import { Provider } from 'react-redux';
-// import store from './component/store.js';
-import UserProvider from './component/signUp.js';
+import { Provider } from 'react-redux';
+import store from './component/store.js';
 // import SignIn from './component/signIn.js';
 // import { AsyncStorage } from 'react-native';
 // import AboutUs from './component/about-us.js';
@@ -58,9 +55,9 @@ export default function App() {
 
 
     return ( 
-        <>
-          <Auth /> 
-        </>
+      <Provider store={store}>
+        <Auth /> 
+      </Provider>
     )
 }
 

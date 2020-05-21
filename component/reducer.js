@@ -8,6 +8,7 @@ const initialStateAuth = {
   user: {},
 };
 export const authReducer = function (state = initialStateAuth, action) {
+    console.log('action', action)
   switch (action.type) {
   case LOGIN:
     return {...state, loggedIn: action.payload.loggedIn, loading: action.payload.loading, user: action.payload.user, token: action.payload.token };

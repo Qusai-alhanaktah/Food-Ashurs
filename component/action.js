@@ -8,6 +8,8 @@ export const KEEP_IN = 'KEEP_IN';
 
 
 export const logUp = (newUser) => dispatch => {
+  console.log('user', newUser);
+  
     fetch('https://food--ashurs.herokuapp.com/signup', {
       method: 'post',
       mode: 'cors',
@@ -17,6 +19,8 @@ export const logUp = (newUser) => dispatch => {
     })
     .then(response =>  response.text())
     .then(token =>{
+      console.log('token', token);
+
       let storage = [['user', JSON.stringify(newUser)], ['access_token', token]];
           AsyncStorage.multiSet(storage, (error)=> {
               if(error) alert("error!");

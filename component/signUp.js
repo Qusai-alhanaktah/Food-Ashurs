@@ -3,14 +3,12 @@ import { StyleSheet, Text, View, TextInput, Button, Modal, Image, TouchableOpaci
 import RadioForm, {RadioButton, RadioButtonInput, RadioButtonLabel} from 'react-native-simple-radio-button';
 import { connect } from 'react-redux';
 import { logUp } from './action.js';
-import { AsyncStorage } from 'react-native';
 
 const role = [
   {label: 'Donor', value: 'donor'},
   {label: 'Recipient', value: 'recipient'},
 ]
-// export const UserContext = React.createContext()
-// const SignUp = UserContext.Provider;
+
 function SignUp (props) {
 
     const [newUser, setNewUser] = useState({});
