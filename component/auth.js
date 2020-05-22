@@ -20,26 +20,27 @@ const If = props => {
 };
 
 function Auth (props){
-  const [token, setToken] = useState(null);
-  const [user, setUser] = useState({});
-  const [okToRenderDonor, setOkToRenderDonor] = useState(false);
-  const [okToRenderRecipient, setOkToRenderRecipient] = useState(false);
+  const [token, setToken] = useState(props.token);
+  const [user, setUser] = useState(props.user);
+  // const [okToRenderDonor, setOkToRenderDonor] = useState(false);
+  // const [okToRenderRecipient, setOkToRenderRecipient] = useState(false);
 
   
-  
+  console.log('props in Auth', props);
+
   useEffect(()=>{
     AsyncStorage.multiGet(['access_token', 'user']).then((userSession) => {
     setToken(userSession[0][1]);
     setUser(JSON.parse(userSession[1][1]));
-    if(userSession[0][1]){
-      if(JSON.parse(userSession[1][1]).role === 'donor') setOkToRenderDonor(true);
-      else if(JSON.parse(userSession[1][1]).role === 'recipient') setOkToRenderRecipient(true);
-      else alert('not authorized to do that');
-     }
+    // if(userSession[0][1]){
+    //   if(JSON.parse(userSession[1][1]).role === 'donor') setOkToRenderDonor(true);
+    //   else if(JSON.parse(userSession[1][1]).role === 'recipient') setOkToRenderRecipient(true);
+    //   else alert('not authorized to do that');
+    //  }
   });
-  console.log(token);
+  // console.log(token);
 
-  console.log(props);
+  console.log('props in Auth', props);
 }, []);
 
     const homeStackScreen  = () =>{ return(
@@ -49,30 +50,29 @@ function Auth (props){
       </Stack.Navigator>
     )}
 
-    const accessScreen = () =>{ return(
+    const accessScreen = () =>{     
+      return(
       props.user.role === 'donor' || user.role === 'donor' ? (
         <Drawer.Navigator>
            <Drawer.Screen name='Donor' component={Donor} options={{title: 'Home'}} />
            <Drawer.Screen name='Profile' component={Profile} initialParams={user} />
            <Drawer.Screen name='AboutUs' component={AboutUs}  />
         </Drawer.Navigator>
-      ): props.user.role === 'recipient' || user.role === 'recipient' ? (
+      ): (
         <Drawer.Navigator>
           <Drawer.Screen name='Recipient' component={Recipient} options={{title: 'Home'}} />
           <Drawer.Screen name='Profile' component={Profile}  initialParams={user}/>
           <Drawer.Screen name='AboutUs' component={AboutUs}  />
         </Drawer.Navigator>
-      ) : ( 
-          homeStackScreen()
       )
     )
     } 
     return (
       <NavigationContainer>
-          {!props.loggedIn || !token ? (
-            homeStackScreen()
-          ):(
+          {props.loggedIn || token ? (
             accessScreen()
+          ):(
+            homeStackScreen()
           )}
       </NavigationContainer>
     );
@@ -81,6 +81,7 @@ const mapStateToProps = state => ({
   user: state.authReducer.user,
   loggedIn: state.authReducer.loggedIn,
   loading: state.authReducer.loading,
+  token: state.authReducer.token,
 });
 const mapDispatchToProps = { logUp, logOut };
 

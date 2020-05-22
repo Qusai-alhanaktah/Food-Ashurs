@@ -4,11 +4,11 @@ import { LOGIN, LOGOUT, LOGUP, KEEP_IN } from './action.js';
 const initialStateAuth = {
   loggedIn: false,
   loading: false,
-  token: '',
+  token: null,
   user: {},
 };
 export const authReducer = function (state = initialStateAuth, action) {
-    console.log('action', action)
+    console.log('action in reducer', action)
   switch (action.type) {
   case LOGIN:
     return {...state, loggedIn: action.payload.loggedIn, loading: action.payload.loading, user: action.payload.user, token: action.payload.token };

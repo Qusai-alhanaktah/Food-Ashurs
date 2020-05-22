@@ -14,7 +14,7 @@ function SignUp (props) {
     const [newUser, setNewUser] = useState({});
     
   const signUp =  () => {
-        if(newUser.username){
+        if(newUser.username && newUser.password && newUser.email && newUser.role){
         // fetch('https://food--ashurs.herokuapp.com/signup', {
         //     method: 'post',
         //     mode: 'cors',

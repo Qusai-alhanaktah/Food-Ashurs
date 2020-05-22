@@ -1,4 +1,4 @@
-// // import jwt from "react-native-pure-jwt";
+// import jwt from 'jsonwebtoken';
 import { AsyncStorage } from 'react-native';
 
 export const LOGIN = 'LOGIN';
@@ -8,7 +8,7 @@ export const KEEP_IN = 'KEEP_IN';
 
 
 export const logUp = (newUser) => dispatch => {
-  console.log('user', newUser);
+  console.log('user at action line 11', newUser);
   
     fetch('https://food--ashurs.herokuapp.com/signup', {
       method: 'post',
@@ -19,17 +19,17 @@ export const logUp = (newUser) => dispatch => {
     })
     .then(response =>  response.text())
     .then(token =>{
-      console.log('token', token);
-
+      console.log('token at action line 21', token);
+      dispatch ({
+        type: LOGUP,
+        payload: {token: token, loggedIn: true, loading: false, user:newUser},
+      });
       let storage = [['user', JSON.stringify(newUser)], ['access_token', token]];
           AsyncStorage.multiSet(storage, (error)=> {
               if(error) alert("error!");
               else alert("Welcome "+ newUser.username +" !");
           });
-          dispatch ({
-            type: LOGUP,
-            payload: {token, loggedIn: true, loading: false, user:newBody},
-          });
+
     });
 };
 export const logOut = () => dispatch => {
