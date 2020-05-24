@@ -1,6 +1,6 @@
 // import jwt from 'jsonwebtoken';
+import React from 'react';
 import { AsyncStorage } from 'react-native';
-
 export const LOGIN = 'LOGIN';
 export const LOGOUT = 'LOGOUT';
 export const LOGUP = 'LOGUP';
@@ -40,7 +40,34 @@ export const logOut = () => dispatch => {
   });
 };
 
-
+export const logIn = (username, password) => dispatch => {
+  fetch('https://food--ashurs.herokuapp.com/signin', {
+    method: 'post',
+    mode: 'cors',
+    cache: 'no-cache',
+    headers: new Headers({
+      'Authorization': `Basic ${btoa(`${username}:${password}`)}`,
+    }),
+  })
+    .then(response =>  response.text())
+    .then(token =>{
+      fetch('https://food--ashurs.herokuapp.com/users')
+      .then(res => {console.log('res',res);  res.json()})
+      .then(data => {
+        console.log('data',data); 
+        const newUser = data.filter(user => (username === user.username && password === user.password))
+        dispatch ({
+          type: LOGIN,
+          payload: {token: token, loggedIn: true, loading: false, user:newUser[0]},
+        });
+          let storage = [['user', JSON.stringify(newUser)], ['access_token', token]];
+          AsyncStorage.multiSet(storage, (error)=> {
+              if(error) alert("error!");
+              else alert("Welcome "+ newUser.username +" !");
+          });
+      });
+    });
+};
 
 
 

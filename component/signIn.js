@@ -1,18 +1,18 @@
-import React, {useState} from 'react'
+import React, {useState} from 'react';
 import { StyleSheet, Text, View, TextInput, Button, Modal, Image } from 'react-native';
-// import { connect } from 'react-redux';
-// import { logIn } from './action.js';
+import { connect } from 'react-redux';
+import { logIn } from './action.js';
 import { AsyncStorage } from 'react-native';
 
 
-export default function SignIn(props) {
+function SignIn(props) {
 
     const [user, setUser] = useState({});
     const [showSingInForm, setShowSingInForm] = useState(false);
 
     const signIn = e => {
-        alert('hello'+ user.username + user.password);
-        // props.logIn( newUser.username , newUser.password)
+        // alert('hello'+ user.username + user.password);
+        props.logIn( user.username , user.password)
         setUser({});
     }
 
@@ -28,14 +28,14 @@ export default function SignIn(props) {
         </View>
     )
 }
-// const mapStateToProps = state => ({
-//     loggedIn: state.authReducer.loggedIn,
-//     loading: state.authReducer.loading,
-//     user: state.authReducer.user,
-//   });
-//   const mapDispatchToProps = { logIn };
+const mapStateToProps = state => ({
+    user: state.authReducer.user,
+    loggedIn: state.authReducer.loggedIn,
+    loading: state.authReducer.loading,
+  });
+  const mapDispatchToProps = { logIn };
   
-//   export default connect(mapStateToProps, mapDispatchToProps)(SignIn);
+  export default connect(mapStateToProps, mapDispatchToProps)(SignIn);
 
   
 const styles = StyleSheet.create({
