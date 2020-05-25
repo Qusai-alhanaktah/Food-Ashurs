@@ -2,16 +2,14 @@ import React, {useState} from 'react';
 import { StyleSheet, Text, View, TextInput, Button, Modal, Image } from 'react-native';
 import { connect } from 'react-redux';
 import { logIn } from './action.js';
-import { AsyncStorage } from 'react-native';
+// import { AsyncStorage } from 'react-native';
 
 
 function SignIn(props) {
 
     const [user, setUser] = useState({});
-    const [showSingInForm, setShowSingInForm] = useState(false);
 
     const signIn = e => {
-        // alert('hello'+ user.username + user.password);
         props.logIn( user.username , user.password)
         setUser({});
     }

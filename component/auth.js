@@ -26,7 +26,7 @@ function Auth (props){
   // const [okToRenderRecipient, setOkToRenderRecipient] = useState(false);
 
   
-  console.log('props in Auth', props);
+  // console.log('props in Auth', props);
 
   useEffect(()=>{
     AsyncStorage.multiGet(['access_token', 'user']).then((userSession) => {
@@ -40,7 +40,7 @@ function Auth (props){
   });
   // console.log(token);
 
-  console.log('props in Auth', props);
+  // console.log('props in Auth', props);
 }, []);
 
     const homeStackScreen  = () =>{ return(

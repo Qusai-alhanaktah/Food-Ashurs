@@ -9,7 +9,6 @@ export const KEEP_IN = 'KEEP_IN';
 import base64 from 'react-native-base64'
 
 export const logUp = (newUser) => dispatch => {
-  console.log('user at action line 11', newUser);
   
     fetch('https://food--ashurs.herokuapp.com/signup', {
       method: 'post',
@@ -20,7 +19,6 @@ export const logUp = (newUser) => dispatch => {
     })
     .then(response =>  response.text())
     .then(token =>{
-      console.log('token at action line 21', token);
       dispatch ({
         type: LOGUP,
         payload: {token: token, loggedIn: true, loading: false, user:newUser},
@@ -42,15 +40,15 @@ export const logOut = () => dispatch => {
 };
 
 export const logIn = (username, password) => dispatch => {
-  console.log('base64' ,base64.encode(username + ':' + password)); 
-  var headers = new Headers();
-  headers.append("Authorization", "Basic " + base64.encode(`${username}:${password}`));
-  fetch('https://food--ashurs.herokuapp.com/signin', {
+  console.log(`Basic ${base64.encode(`${username}:${password}`)}`); 
+  // var headers = new Headers();
+  // headers.append("Authorization", "Basic " + base64.encode(`${username}:${password}`));
+  fetch('http://localhost:8080/signin', {
     method: 'post',
     mode: 'cors',
     cache: 'no-cache',
     headers: new Headers({
-      "Authorization": `Basic ${base64.encode(`${username}:${password}`)}`
+      'Authorization': `Basic ${base64.encode(`${username}:${password}`)}`,
     }),
   })
     .then(response =>  {
@@ -88,12 +86,12 @@ export const logIn = (username, password) => dispatch => {
 
 // export const logIn = (username, password) => dispatch => {
 //   fetch('https://food--ashurs.herokuapp.com/signin', {
-//     method: 'post',
-//     mode: 'cors',
-//     cache: 'no-cache',
-//     headers: new Headers({
-//       'Authorization': `Basic ${btoa(`${username}:${password}`)}`,
-//     }),
+    // method: 'post',
+    // mode: 'cors',
+    // cache: 'no-cache',
+    // headers: new Headers({
+    //   'Authorization': `Basic ${btoa(`${username}:${password}`)}`,
+    // }),
 //   })
 //     .then(response =>  response.text())
 //     .then(token => validateToken(token))
