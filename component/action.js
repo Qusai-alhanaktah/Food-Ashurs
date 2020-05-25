@@ -5,8 +5,8 @@ export const LOGIN = 'LOGIN';
 export const LOGOUT = 'LOGOUT';
 export const LOGUP = 'LOGUP';
 export const KEEP_IN = 'KEEP_IN';
-const base64 = require('base-64');
-
+// const base64 = require('base-64');
+import base64 from 'react-native-base64'
 
 export const logUp = (newUser) => dispatch => {
   console.log('user at action line 11', newUser);
@@ -44,34 +44,40 @@ export const logOut = () => dispatch => {
 export const logIn = (username, password) => dispatch => {
   console.log('username',username, 'password',password); 
   var headers = new Headers();
-  headers.append("Authorization", "Basic " + base64.encode(`${user}:${password}`));
+  headers.append("Authorization", "Basic " + base64.encode(`${username}:${password}`));
   fetch('https://food--ashurs.herokuapp.com/signin', {
     method: 'post',
     mode: 'cors',
     cache: 'no-cache',
-    headers: headers,
+    headers: new Headers({
+           "Authorization": "Basic " + base64.encode(`${username}:${password}`),
+          }),
   })
     .then(response =>  {
       console.log('response',response); 
-      response.text()})
-    .then(token =>{
-      console.log('token',token); 
-      fetch('https://food--ashurs.herokuapp.com/users')
-      .then(res => {console.log('res',res);  res.json()})
-      .then(data => {
-        console.log('data',data); 
-        const newUser = data.filter(user => (username === user.username && password === user.password))
-        dispatch ({
-          type: LOGIN,
-          payload: {token: token, loggedIn: true, loading: false, user:newUser[0]},
-        });
-          let storage = [['user', JSON.stringify(newUser)], ['access_token', token]];
-          AsyncStorage.multiSet(storage, (error)=> {
-              if(error) alert("error!");
-              else alert("Welcome "+ newUser.username +" !");
-          });
-      });
-    });
+      response.text()
+    })
+    // .then(token =>{
+    //   console.log('token',token); 
+    //   fetch('https://food--ashurs.herokuapp.com/users')
+    //   .then(res => { 
+    //     console.log('res',res);  
+    //     // res.json()
+    //   })
+      // .then(data => {
+      //   console.log('data',data); 
+      //   const newUser = data.filter(user => (username === user.username && password === user.password))
+      //   dispatch ({
+      //     type: LOGIN,
+      //     payload: {token: token, loggedIn: true, loading: false, user:newUser[0]},
+      //   });
+      //     let storage = [['user', JSON.stringify(newUser)], ['access_token', token]];
+      //     AsyncStorage.multiSet(storage, (error)=> {
+      //         if(error) alert("error!");
+      //         else alert("Welcome "+ newUser.username +" !");
+      //     });
+      // });
+    // });
 };
 
 
