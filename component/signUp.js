@@ -56,8 +56,8 @@ function SignUp (props) {
               />
             <Button style={styles.button} onPress={() => {signUp(); }}  title="Sign Up"  color="black" />
             </TouchableOpacity>
-            <Text>I have an account</Text>
-            <Button onPress={()=> props.navigation.navigate('SignIn')} title="Log In" color='gray'/>
+            <Text onPress={()=> props.navigation.navigate('SignIn')} >I have an account</Text>
+            {/* <Button onPress={()=> props.navigation.navigate('SignIn')} title="Log In" color='gray'/> */}
 
         </View>
     )

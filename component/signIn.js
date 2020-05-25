@@ -21,8 +21,8 @@ function SignIn(props) {
             <Text>Password: </Text>
             <TextInput  placeholder='Type Your Password'  style={styles.input}  onChangeText={value => setUser({...user, 'password': value})}/>
             <Button style={styles.button} onPress={() => signIn()}  title="Sign In"  color="black" />
-        <Text>I don't have an account</Text>
-        <Button onPress={()=> props.navigation.navigate('SignUp')} title="Create One" color='gray'/>
+        <Text onPress={()=> props.navigation.navigate('SignUp')}>I don't have an account</Text>
+        {/* <Button onPress={()=> props.navigation.navigate('SignUp')} title="Create One" color='gray'/> */}
         </View>
     )
 }

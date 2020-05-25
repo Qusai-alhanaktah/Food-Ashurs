@@ -43,18 +43,20 @@ export const logIn = (username, password) => dispatch => {
   console.log(`Basic ${base64.encode(`${username}:${password}`)}`); 
   // var headers = new Headers();
   // headers.append("Authorization", "Basic " + base64.encode(`${username}:${password}`));
-  fetch('http://localhost:8080/signin', {
-    method: 'post',
-    mode: 'cors',
-    cache: 'no-cache',
-    headers: new Headers({
-      'Authorization': `Basic ${base64.encode(`${username}:${password}`)}`,
-    }),
-  })
-    .then(response =>  {
-      console.log('response',response); 
-      response.text()
-    })
+    fetch('http://localhost:8080/api/v1/donor')
+    .then(res=> console.log(res))
+  // fetch('http://localhost:8080/signin', {
+  //   method: 'post',
+  //   mode: 'cors',
+  //   cache: 'no-cache',
+  //   headers: new Headers({
+  //     'Authorization': `Basic ${base64.encode(`${username}:${password}`)}`,
+  //   }),
+  // })
+  //   .then(response =>  {
+  //     console.log('response',response); 
+  //     response.text()
+  //   })
     // .then(token =>{
     //   console.log('token',token); 
     //   fetch('https://food--ashurs.herokuapp.com/users')
