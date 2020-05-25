@@ -42,7 +42,7 @@ export const logOut = () => dispatch => {
 };
 
 export const logIn = (username, password) => dispatch => {
-  console.log('username',username, 'password',password); 
+  console.log('base64' ,base64.encode(username + ':' + password)); 
   var headers = new Headers();
   headers.append("Authorization", "Basic " + base64.encode(`${username}:${password}`));
   fetch('https://food--ashurs.herokuapp.com/signin', {
@@ -50,8 +50,8 @@ export const logIn = (username, password) => dispatch => {
     mode: 'cors',
     cache: 'no-cache',
     headers: new Headers({
-           "Authorization": "Basic " + base64.encode(`${username}:${password}`),
-          }),
+      "Authorization": `Basic ${base64.encode(`${username}:${password}`)}`
+    }),
   })
     .then(response =>  {
       console.log('response',response); 
