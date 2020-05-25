@@ -5,6 +5,7 @@ export const LOGIN = 'LOGIN';
 export const LOGOUT = 'LOGOUT';
 export const LOGUP = 'LOGUP';
 export const KEEP_IN = 'KEEP_IN';
+const base64 = require('base-64');
 
 
 export const logUp = (newUser) => dispatch => {
@@ -41,16 +42,20 @@ export const logOut = () => dispatch => {
 };
 
 export const logIn = (username, password) => dispatch => {
+  console.log('username',username, 'password',password); 
+  var headers = new Headers();
+  headers.append("Authorization", "Basic " + base64.encode(`${user}:${password}`));
   fetch('https://food--ashurs.herokuapp.com/signin', {
     method: 'post',
     mode: 'cors',
     cache: 'no-cache',
-    headers: new Headers({
-      'Authorization': `Basic ${btoa(`${username}:${password}`)}`,
-    }),
+    headers: headers,
   })
-    .then(response =>  response.text())
+    .then(response =>  {
+      console.log('response',response); 
+      response.text()})
     .then(token =>{
+      console.log('token',token); 
       fetch('https://food--ashurs.herokuapp.com/users')
       .then(res => {console.log('res',res);  res.json()})
       .then(data => {
@@ -68,6 +73,7 @@ export const logIn = (username, password) => dispatch => {
       });
     });
 };
+
 
 
 
