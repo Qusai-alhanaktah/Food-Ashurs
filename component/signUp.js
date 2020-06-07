@@ -40,22 +40,24 @@ function SignUp (props) {
       <View style={styles.container}>
             <Text style={styles.title}>Food Ashur's</Text>
             <TouchableOpacity style={styles.form}>
-            <Text style={styles.text}>User Name: </Text>
-            <TextInput  placeholder='Type Your UserName'  style={styles.input}  onChangeText={value => setNewUser({...newUser, 'username': value})}/>
-            <Text  style={styles.text}>Password: </Text>
-            <TextInput  placeholder='Type Your Password'  style={styles.input}  onChangeText={value => setNewUser({...newUser, 'password': value})}/>
-            <Text style={styles.text}>Email: </Text>
-            <TextInput  placeholder='Type Your Email'  style={styles.input}  onChangeText={value => setNewUser({...newUser, 'email': value})}/>
-            <Text style={styles.text}>Food Type: </Text>
-            <RadioForm
-                radio_props={role}
-                initial={-1}
-                onPress={ value => setNewUser({...newUser, 'role': value})}
-                buttonSize={20}
-                buttonOuterSize={25}
-                selectorButtonColor={'green'}
-              />
-            <Button style={styles.button} onPress={() => {signUp(); }}  title="Sign Up"  />
+              <Text style={styles.text}>User Name: </Text>
+              <TextInput  placeholder='Type Your UserName'  style={styles.input}  onChangeText={value => setNewUser({...newUser, 'username': value})}/>
+              <Text  style={styles.text}>Password: </Text>
+              <TextInput  placeholder='Type Your Password'  style={styles.input}  onChangeText={value => setNewUser({...newUser, 'password': value})}/>
+              <Text style={styles.text}>Email: </Text>
+              <TextInput  placeholder='Type Your Email'  style={styles.input}  onChangeText={value => setNewUser({...newUser, 'email': value})}/>
+              <Text style={styles.text}>Food Type: </Text>
+              <RadioForm
+                  radio_props={role}
+                  initial={-1}
+                  onPress={ value => setNewUser({...newUser, 'role': value})}
+                  buttonSize={20}
+                  buttonOuterSize={25}
+                  selectorButtonColor={'green'}
+                />
+              <View style={styles.button} >
+                <Button onPress={() => {signUp(); }}  title="Sign Up"  />
+              </View>
             </TouchableOpacity>
             <View style={styles.switchPage}>
                <Text style={styles.switch1}>I have an account, let's</Text>
@@ -81,7 +83,7 @@ const styles = StyleSheet.create({
     },
     form: {flex: 1, justifyContent: 'center', padding: 20, marginVertical: 50},
     text: {fontSize: 20, fontWeight: 'bold'},
-    button: {color: '#00695c',marginBottom: 30 },
+    button: {color: '#00695c',  width: 370,  alignItems: 'center',    },
     title:{ fontSize: 30, fontWeight: 'bold', textAlign: 'center', marginTop: 30,},
     input: {borderStyle: 'solid', borderWidth: 1, borderRadius: 20, backgroundColor: 'white', fontSize: 15, color: 'blue', textAlign: 'center', },
     switchPage: {

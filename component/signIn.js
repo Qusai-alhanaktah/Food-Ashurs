@@ -1,9 +1,7 @@
 import React, {useState} from 'react';
-import { StyleSheet, Text, View, TextInput, Button, Modal, Image } from 'react-native';
+import { StyleSheet, Text, View, TextInput, Button, Modal, Image, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 import { logIn } from './action.js';
-import { TouchableOpacity } from 'react-native-gesture-handler';
-// import { AsyncStorage } from 'react-native';
 
 
 function SignIn(props) {
@@ -23,11 +21,12 @@ function SignIn(props) {
               <TextInput  placeholder='Type Your UserName'  style={styles.input} onChangeText={value => setUser({...user, 'username': value})}/>
               <Text style={styles.text}>Password: </Text>
               <TextInput  placeholder='Type Your Password'  style={styles.input}  onChangeText={value => setUser({...user, 'password': value})}/>
-              <Button style={styles.button} onPress={() => signIn()}  title="Sign In"  />
+              <View style={styles.button}>
+                <Button onPress={() => signIn()}  title="Sign In"  />
+              </View>
             </TouchableOpacity>
-            <View style={styles.switchPage}>
-               <Text style={styles.switch1}>I Don't have an account, let's</Text>
-               <Text style={styles.switch2} onPress={()=> props.navigation.navigate('SignUp')}>Sign Up</Text>
+            <View>
+               <Text style={styles.switch1}>I Don't have an account, let's<Text style={styles.switch2} onPress={()=> props.navigation.navigate('SignUp')}> Sign Up</Text></Text>
             </View>
         </View>
     )
@@ -50,13 +49,9 @@ const mapStateToProps = state => ({
     },
     form: { justifyContent: 'center', padding: 20, marginVertical: 100},
     text: {fontSize: 20, fontWeight: 'bold'},
-    button: {color: '#00695c',marginVertical: 30 },
+    button: {color: '#00695c',  width: 370,  alignItems: 'center',     },
     title:{ fontSize: 30, fontWeight: 'bold', textAlign: 'center', marginTop: 30,},
     input: {borderStyle: 'solid', borderWidth: 1, borderRadius: 20, backgroundColor: 'white', fontSize: 15, color: 'blue', textAlign: 'center', marginBottom: 20 },
-    switchPage: {
-      flex: 1,
-      flexDirection: 'row',
-      textAlign: 'center', fontSize: 20, marginBottom: -180},
-      switch1: {flex: 0.5, marginLeft: 50,},
-      switch2: {flex: 0.5, marginLeft: -7, color: 'blue', },
+    switch2: {  textAlign: 'center', color: 'blue', },
+    switch1: {textAlign: 'center',}
 });
