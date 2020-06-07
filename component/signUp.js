@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, TextInput, Button, Modal, Image, TouchableOpaci
 import RadioForm, {RadioButton, RadioButtonInput, RadioButtonLabel} from 'react-native-simple-radio-button';
 import { connect } from 'react-redux';
 import { logUp } from './action.js';
+import logo from '../assets/logo.jpg'
 
 const role = [
   {label: 'Donor', value: 'donor'},
@@ -14,31 +15,16 @@ function SignUp (props) {
     const [newUser, setNewUser] = useState({});
     
   const signUp =  () => {
-        if(newUser.username && newUser.password && newUser.email && newUser.role){
-        // fetch('https://food--ashurs.herokuapp.com/signup', {
-        //     method: 'post',
-        //     mode: 'cors',
-        //     cache: 'no-cache',
-        //     headers: { 'Content-Type': 'application/json' },
-        //     body: newUser ? JSON.stringify(newUser) : undefined,
-        // })
-        // .then(response =>  response.text())
-        // .then(token =>{
-        //     let storage = [['user', JSON.stringify(newUser)], ['access_token', token]];
-        //         AsyncStorage.multiSet(storage, (error)=> {
-        //             if(error) alert("error!");
-        //             else alert("Welcome "+ newUser.username +" !");
-        //         });  
-        // });
-        props.logUp(newUser);
-        setNewUser({});
-        // props.navigation.navigate('App')
+    if(newUser.username && newUser.password && newUser.email && newUser.role){
+      props.logUp(newUser);
+      setNewUser({});
     }else alert('You have to fill the form')
   }
 
     return (
       <View style={styles.container}>
             <Text style={styles.title}>Food Ashur's</Text>
+            <Image source={logo} style={styles.logo}/>
             <TouchableOpacity style={styles.form}>
               <Text style={styles.text}>User Name: </Text>
               <TextInput  placeholder='Type Your UserName'  style={styles.input}  onChangeText={value => setNewUser({...newUser, 'username': value})}/>
@@ -81,15 +67,17 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#81c784',
     },
-    form: {flex: 1, justifyContent: 'center', padding: 20, marginVertical: 50},
+    form: {flex: 1, justifyContent: 'center', padding: 20, marginBottom: 50},
     text: {fontSize: 20, fontWeight: 'bold'},
     button: {color: '#00695c',  width: 370,  alignItems: 'center',    },
-    title:{ fontSize: 30, fontWeight: 'bold', textAlign: 'center', marginTop: 30,},
+    title:{ fontSize: 30, fontWeight: 'bold', textAlign: 'center', marginTop: 10,},
     input: {borderStyle: 'solid', borderWidth: 1, borderRadius: 20, backgroundColor: 'white', fontSize: 15, color: 'blue', textAlign: 'center', },
     switchPage: {
       flex: 1,
       flexDirection: 'row',
       textAlign: 'center', fontSize: 20, marginBottom: -180},
-      switch1: {flex: 0.5, marginLeft: 90,},
-      switch2: {flex: 0.5, marginLeft: -35, color: 'blue', },
+    switch1: {flex: 0.5, marginLeft: 90,},
+    switch2: {flex: 0.5, marginLeft: -35, color: 'blue', },
+    logo: { width:100, height:100, marginLeft: 150, marginBottom: -20}
+
 });

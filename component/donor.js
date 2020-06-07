@@ -130,12 +130,12 @@ function Donor(props) {
               </View>
               </TouchableOpacity>
               )}
-            <Modal visible={showUpdateForm}>
-            <View style={styles.closeBtn}>
+            <Modal visible={showUpdateForm} style={styles.modal}>
+            <View style={styles.modalCloseBtn}>
             <Button onPress={()=> {setShowUpdateForm(false)}} title="X" color='#f194ff' />
             </View>
            <Text>Your Name: </Text>
-            <TextInput  defaultValue={showNewDonor.name}  style={styles.input}  onChangeText={(value)=>setUpdateDonor({...updateDonor, 'name': value})}/>
+            <TextInput  defaultValue={showNewDonor.name}  style={styles.modalText}  onChangeText={(value)=>setUpdateDonor({...updateDonor, 'name': value})}/>
             <Text>Food Type: </Text>
             <RadioForm
                 radio_props={foodType}
@@ -146,10 +146,12 @@ function Donor(props) {
                 selectorButtonColor={'green'}
               /> 
          <Text>Food Mount: </Text>
-            <TextInput  defaultValue={showNewDonor.amount}  style={styles.input}   onChangeText={(value)=>setUpdateDonor({...updateDonor, 'amount': value})}/>
+            <TextInput  defaultValue={showNewDonor.amount}  style={styles.modalText}  onChangeText={(value)=>setUpdateDonor({...updateDonor, 'amount': value})}/>
             <Text>Available Time: </Text>
-            <TextInput  defaultValue={showNewDonor.available_time}  style={styles.input}  onChangeText={(value)=>setUpdateDonor({...updateDonor, 'available_time': value})}/>
+            <TextInput  defaultValue={showNewDonor.available_time} style={styles.modalText} onChangeText={(value)=>setUpdateDonor({...updateDonor, 'available_time': value})}/>
+              <View style={styles.modalBtn}>
             <Button onPress={()=> {updatedDonor(showNewDonor._id); setShowUpdateForm(false)}} title="Submit" color='#f194ff' />
+            </View>
             </Modal>
             </View>
             <View style={styles.footer}>
@@ -183,12 +185,11 @@ const styles = StyleSheet.create({
     recipients: {padding: 10, alignItems: 'center', backgroundColor: '#c8e6c9' },
     closeBtn: { width: 360, alignItems: 'flex-end',  backgroundColor: '#c8e6c9'  },
     footer: {marginTop: 200},
-    record: {alignItems: 'center', },
+    record: {alignItems: 'center', backgroundColor: '#ffab00'},
     recordItem: { padding: 10, fontWeight: 'bold', fontSize: 20, color: '#0277bd'},
     recordItemBtn: {flexDirection: 'row', paddingHorizontal: 50, justifyContent: 'space-between', width: 300},
     modal: {padding: 200},
     modalText: { borderStyle: 'solid', borderWidth: 1, borderRadius: 20, backgroundColor: 'white', fontSize: 15, color: 'blue', textAlign: 'center', marginBottom: 20 },
     modalBtn: {alignItems: 'center'},
     modalCloseBtn: { width: 411, alignItems: 'flex-end', },
-
   });

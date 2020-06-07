@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
-import { StyleSheet, Text, View, TextInput, Button, Modal, Image, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, TextInput, Button, Image, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 import { logIn } from './action.js';
-
+import logo from '../assets/logo.jpg'
 
 function SignIn(props) {
 
@@ -16,6 +16,7 @@ function SignIn(props) {
     return (
         <View style={styles.container}>
             <Text style={styles.title}>Food Ashur's</Text>
+            <Image source={logo} style={styles.logo}/>
             <TouchableOpacity style={styles.form}>
               <Text style={styles.text}>User Name: </Text>
               <TextInput  placeholder='Type Your UserName'  style={styles.input} onChangeText={value => setUser({...user, 'username': value})}/>
@@ -47,11 +48,12 @@ const mapStateToProps = state => ({
     flex: 1,
     backgroundColor: '#81c784',
     },
-    form: { justifyContent: 'center', padding: 20, marginVertical: 100},
+    form: { justifyContent: 'center', padding: 20, marginBottom: 100},
     text: {fontSize: 20, fontWeight: 'bold'},
     button: {color: '#00695c',  width: 370,  alignItems: 'center',     },
     title:{ fontSize: 30, fontWeight: 'bold', textAlign: 'center', marginTop: 30,},
     input: {borderStyle: 'solid', borderWidth: 1, borderRadius: 20, backgroundColor: 'white', fontSize: 15, color: 'blue', textAlign: 'center', marginBottom: 20 },
     switch2: {  textAlign: 'center', color: 'blue', },
-    switch1: {textAlign: 'center',}
+    switch1: {textAlign: 'center',},
+    logo: { width:100, height:100, marginLeft: 150}
 });
