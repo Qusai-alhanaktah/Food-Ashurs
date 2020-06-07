@@ -56,7 +56,8 @@ export default function App() {
 
     return ( 
       <Provider store={store}>
-        <Auth /> 
+        <Auth style={styles.container}>
+          </Auth> 
       </Provider>
     )
 }
@@ -64,8 +65,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: '#81c784',
+    marginTop: 100
   },
 });

@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import { StyleSheet, Text, View, TextInput, Button, Modal, Image } from 'react-native';
 import { connect } from 'react-redux';
 import { logIn } from './action.js';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 // import { AsyncStorage } from 'react-native';
 
 
@@ -16,13 +17,18 @@ function SignIn(props) {
 
     return (
         <View style={styles.container}>
-            <Text>User Name: </Text>
-            <TextInput  placeholder='Type Your UserName'  style={styles.input} onChangeText={value => setUser({...user, 'username': value})}/>
-            <Text>Password: </Text>
-            <TextInput  placeholder='Type Your Password'  style={styles.input}  onChangeText={value => setUser({...user, 'password': value})}/>
-            <Button style={styles.button} onPress={() => signIn()}  title="Sign In"  color="black" />
-        <Text onPress={()=> props.navigation.navigate('SignUp')}>I don't have an account</Text>
-        {/* <Button onPress={()=> props.navigation.navigate('SignUp')} title="Create One" color='gray'/> */}
+            <Text style={styles.title}>Food Ashur's</Text>
+            <TouchableOpacity style={styles.form}>
+              <Text style={styles.text}>User Name: </Text>
+              <TextInput  placeholder='Type Your UserName'  style={styles.input} onChangeText={value => setUser({...user, 'username': value})}/>
+              <Text style={styles.text}>Password: </Text>
+              <TextInput  placeholder='Type Your Password'  style={styles.input}  onChangeText={value => setUser({...user, 'password': value})}/>
+              <Button style={styles.button} onPress={() => signIn()}  title="Sign In"  />
+            </TouchableOpacity>
+            <View style={styles.switchPage}>
+               <Text style={styles.switch1}>I Don't have an account, let's</Text>
+               <Text style={styles.switch2} onPress={()=> props.navigation.navigate('SignUp')}>Sign Up</Text>
+            </View>
         </View>
     )
 }
@@ -36,10 +42,21 @@ const mapStateToProps = state => ({
   export default connect(mapStateToProps, mapDispatchToProps)(SignIn);
 
   
-const styles = StyleSheet.create({
-    container: {textAlign: 'center', marginTop:0,backgroundColor:'#696e78'},
-    title: {textAlign: 'center', fontSize: 30, marginVertical: 30},
-    input:{ fontSize: 15},
-    button: {flex:1 ,flexDirection: 'row', justifyContent: 'space-between', width: 50},
-    text: {textAlign: 'center',}
+  const styles = StyleSheet.create({
+  
+    container: {textAlign: 'center',    
+    flex: 1,
+    backgroundColor: '#81c784',
+    },
+    form: { justifyContent: 'center', padding: 20, marginVertical: 100},
+    text: {fontSize: 20, fontWeight: 'bold'},
+    button: {color: '#00695c',marginVertical: 30 },
+    title:{ fontSize: 30, fontWeight: 'bold', textAlign: 'center', marginTop: 30,},
+    input: {borderStyle: 'solid', borderWidth: 1, borderRadius: 20, backgroundColor: 'white', fontSize: 15, color: 'blue', textAlign: 'center', marginBottom: 20 },
+    switchPage: {
+      flex: 1,
+      flexDirection: 'row',
+      textAlign: 'center', fontSize: 20, marginBottom: -180},
+      switch1: {flex: 0.5, marginLeft: 50,},
+      switch2: {flex: 0.5, marginLeft: -7, color: 'blue', },
 });
